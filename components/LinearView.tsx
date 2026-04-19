@@ -116,21 +116,25 @@ UX Engineer working across design and development.
             <LinearWorkCard key={p.id} project={p} onOpen={() => onOpenProject(p)} index={i} />
           ))}
         </div>
+        
       </section>
 
       {/* Contact */}
       <section className="linear-section linear-contact">
-
-        <h2 className="serif linear-h2" style={{ textAlign: "center" }}>
+<h2 className="serif linear-h2" style={{ textAlign: "center" }}>
           Let&apos;s build <em> our future together</em>
         </h2>
         <button className="btn" onClick={onOpenContact} onMouseEnter={AudioEngine.hover}>
           Get in touch →
         </button>
-        <SocialIcons />
+     
+        
         <footer className="linear-footer mono">
-          <span>© 2026 Elpidio Marquez</span>
-          <span>Built from scratch · No template</span>
+          <span>
+             <SocialIcons />
+</span>
+          <span>© 2026 Elpidio Márquez - Built from scratch</span>
+        
         </footer>
       </section>
     </div></div>

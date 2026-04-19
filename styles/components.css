@@ -95,6 +95,27 @@
 }
 .nav-link:hover { color: var(--fg); background: var(--bg-sunken); }
 
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--rule);
+  color: var(--fg-muted);
+  background: color-mix(in oklch, var(--bg-elevated) 80%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: color var(--dur), border-color var(--dur), transform var(--dur) var(--ease-spring);
+  flex-shrink: 0;
+}
+.theme-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: rotate(20deg) scale(1.1);
+}
+
 /* ── Buttons ─────────────────────────────────────────────────── */
 .btn {
   display: inline-flex;
@@ -1030,4 +1051,52 @@ border-radius: 16px;
 
   /* ── Contact form ── */
   .contact-heading { font-size: var(--step-3); }
+}
+
+/* ============================================================
+   LIGHT MODE overrides
+   ============================================================ */
+[data-mode="light"] {
+  /* Nebula: much softer so it doesn't overwhelm a light canvas */
+  & .starfield-nebula { opacity: 0.18; }
+  & .starfield-deep   { opacity: 0.12; }
+
+  /* Starfield bg becomes light — stars use var(--fg) so auto-darken */
+  & .starfield-root {
+    background: radial-gradient(
+      ellipse 100% 80% at 50% 50%,
+      oklch(from var(--bg) calc(l * 0.97) c h) 0%,
+      var(--bg) 70%
+    );
+  }
+
+  /* Memoji: screen blend removes black on dark bg;
+     multiply removes white on light bg              */
+  & .linear-memoji,
+  & .about-memoji { mix-blend-mode: multiply; }
+
+  /* Cursor trail: darken to be visible on light bg */
+  & .app-root { --accent-dim: oklch(0.50 0.17 290 / 0.45); }
+
+  /* Cards & elevated surfaces get a subtle shadow instead of glow */
+  & .linear-work-card:hover,
+  & .linear-work-card.hovered {
+    background: oklch(from var(--bg-elevated) l c h / 0.8);
+  }
+
+  /* Top bar backdrop: lighter tint */
+  & .top-bar.scrolled {
+    background: color-mix(in oklch, var(--bg) 85%, transparent);
+  }
+
+  /* Modal backdrop: lighter tint, still blurs */
+  & .modal-backdrop {
+    background: oklch(0.85 0.005 80 / 0.55);
+  }
+
+  /* Placeholder fills: invert for visibility */
+  & .placeholder-root {
+    filter: invert(1) hue-rotate(180deg);
+    opacity: 0.06;
+  }
 }

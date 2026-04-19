@@ -61,6 +61,7 @@
 /* Light mode */
 :root[data-mode="light"] {
   --bg: oklch(0.97 0.004 80);
+  --accent-glow: oklch(0.70 0.17 290 / 0.10);
   --bg-elevated: oklch(1 0 0);
   --bg-sunken: oklch(0.93 0.005 80);
   --fg: oklch(0.18 0.008 60);

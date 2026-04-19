@@ -47,7 +47,7 @@ export function SocialIcons() {
       </a>
       <a
         className="social-icon"
-        href="https://linkedin.com/in/elpidio"
+        href="https://www.linkedin.com/in/elpidio-guillermo-m%C3%A1rquez-166bb3241/"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="LinkedIn"
@@ -57,7 +57,7 @@ export function SocialIcons() {
       </a>
       <a
         className="social-icon"
-        href="https://github.com/elpidio"
+        href="https://github.com/elpidiog"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="GitHub"
@@ -89,11 +89,11 @@ export default function ContactPanel({ onClose }: ContactPanelProps) {
     <ModalShell title="Contact" onClose={onClose} narrow>
       <div className="contact-panel-body">
         <h2 className="serif contact-heading">
-          I&apos;m selectively available<br />for collaborations.
+          Let's brainstorm some ideas
         </h2>
 
         {sent ? (
-          <p className="contact-sent mono">Your mail client opened — talk soon ✦</p>
+          <p className="contact-sent mono">Your mail client opened — let's talk!</p>
         ) : (
           <form className="contact-form" onSubmit={handleSubmit}>
             <div className="contact-field">
@@ -126,7 +126,7 @@ export default function ContactPanel({ onClose }: ContactPanelProps) {
                 id="cf-message"
                 className="contact-input contact-textarea"
                 required
-                placeholder="Tell me about your project…"
+                placeholder="Tell me about your idea…"
                 rows={5}
                 value={message}
                 onChange={e => setMessage(e.target.value)}

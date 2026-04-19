@@ -164,12 +164,7 @@ export default function GalaxyView({
             letterSpacing: '-0.03em',
             lineHeight: 1,
             marginTop: 6,
-            textShadow: `
-              0 0 2px rgba(0,0,0,0.9),
-              0 0 8px rgba(0,0,0,0.6),
-              0 0 24px rgba(0,0,0,0.5),
-              0 6px 30px rgba(0,0,0,0.7)
-            `,
+         
           }}
         >
           A small <em>galaxy</em> of work
