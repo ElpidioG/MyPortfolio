@@ -140,9 +140,9 @@
 }
 .linear-hero-intro {
   display: flex;
-  align-items: left;
+  align-items: center;
   width: 80%;
-  gap: 40px;
+  gap: 24px;
   margin-top: 18px;
 }
 .linear-memoji-wrap {
@@ -227,7 +227,7 @@
 
 /* Latest works — the main act. More breathing, bigger rhythm. */
 .linear-work-section {
-  max-width:  100vh;
+
   padding: 2vh 6vw 2vh;
 }
 .linear-work-head { margin-bottom: 10vh; }
