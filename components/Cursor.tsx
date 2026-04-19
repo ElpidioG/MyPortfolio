@@ -72,7 +72,7 @@ const TRAIL_OFFSET = 4;
         position: 'fixed',
         inset: 0,
         pointerEvents: 'none',
-        zIndex: 9999,
+        zIndex: 99999,
       }}
     >
       {Array.from({ length: TRAIL }, (_, i) => (

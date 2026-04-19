@@ -897,6 +897,83 @@ border-radius: 16px;
   gap: 40px;
   margin-top: 40px;
 }
+/* ── Shared text ── */
+.cs-section-text {
+  font-size: var(--step-1);
+  margin-top: 8px;
+  max-width: 60ch;
+  line-height: 1.55;
+  color: var(--fg-muted);
+}
+
+/* ── Research section ── */
+.cs-research {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 28px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+}
+.cs-sublabel {
+  margin-bottom: 8px;
+  color: var(--fg-dim);
+}
+.cs-research-goal { max-width: 64ch; }
+.cs-research-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.cs-research-col { display: flex; flex-direction: column; }
+.cs-bullet-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 0;
+}
+.cs-bullet-list li {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  gap: 10px;
+  font-size: var(--step-0);
+  line-height: 1.45;
+  color: var(--fg-muted);
+}
+.cs-bullet-list li::before {
+  content: "·";
+  color: var(--accent);
+  font-family: var(--font-mono);
+  margin-top: 1px;
+}
+.cs-research-graphics {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 4px;
+}
+.cs-research-graphic {
+  aspect-ratio: 4/3;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+}
+
+/* ── Objective section ── */
+.cs-objective-section {
+  border-left: 2px solid var(--accent);
+  padding-left: 20px;
+}
+.cs-objective-text {
+  font-size: var(--step-3);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-top: 10px;
+  max-width: 52ch;
+}
+
 .cs-list {
   list-style: none;
   display: flex;
@@ -941,6 +1018,152 @@ border-radius: 16px;
 }
 
 /* ============================================================
+   PLACEHOLDER — hover overlay + lightbox
+   ============================================================ */
+
+.placeholder-wrap {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+.placeholder-overlay {
+  position: absolute;
+  inset: 0;
+  background: oklch(0.08 0.01 290 / 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity var(--dur) var(--ease-out);
+  z-index: 1;
+}
+
+.placeholder-wrap:hover .placeholder-overlay {
+  opacity: 0;
+}
+
+.placeholder-overlay-hint {
+  font-size: var(--step--1);
+  color: var(--fg);
+  letter-spacing: 0.08em;
+  user-select: none;
+}
+
+.placeholder-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: oklch(0.06 0.01 290 / 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholder-lightbox-close {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  font-size: var(--step--1);
+  color: var(--fg-muted);
+  letter-spacing: 0.06em;
+  transition: color var(--dur-fast) var(--ease-out);
+  z-index: 1;
+}
+
+.placeholder-lightbox-close:hover {
+  color: var(--fg);
+}
+
+.placeholder-lightbox-content {
+  max-width: 90vw;
+  max-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholder-lightbox-site {
+  width: 88vw;
+  height: 82vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--rule-strong);
+  box-shadow: var(--depth-4);
+}
+
+.placeholder-lightbox-site-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--rule);
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.placeholder-lightbox-site-bar .mono {
+  font-size: var(--step--2);
+  color: var(--fg-muted);
+}
+
+.placeholder-lightbox-site-link {
+  font-size: var(--step--2);
+  color: var(--accent);
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+.placeholder-lightbox-site-link:hover {
+  opacity: 0.75;
+}
+
+.placeholder-lightbox-image-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 24px;
+  background: var(--bg-sunken);
+}
+
+.placeholder-lightbox-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+}
+
+.placeholder-lightbox-iframe {
+  flex: 1;
+  width: 100%;
+  border: none;
+}
+
+.placeholder-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: inherit;
+}
+
+/* Light mode overrides */
+[data-mode="light"] .placeholder-overlay {
+  background: oklch(0.95 0.003 80 / 0.60);
+}
+
+[data-mode="light"] .placeholder-lightbox {
+  background: oklch(0.97 0.003 80 / 0.85);
+}
+
+/* ============================================================
    RESPONSIVE — tablet (≤820px) and mobile (≤600px)
    ============================================================ */
 
@@ -972,7 +1195,9 @@ border-radius: 16px;
   /* Case study */
   .cs-head { grid-template-columns: 1fr; }
   .cs-gallery { grid-template-columns: 1fr; }
-  .cs-results { grid-template-columns: 1fr 1fr; }
+  .cs-results { grid-template-columns: 1fr; }
+  .cs-research-cols { grid-template-columns: 1fr; }
+  .cs-objective-text { font-size: var(--step-2); }
 
   /* About */
   .about-grid { grid-template-columns: 1fr; }

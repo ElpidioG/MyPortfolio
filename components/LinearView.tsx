@@ -41,12 +41,12 @@ function LinearWorkCard({ project, onOpen, index }: { project: Project; onOpen: 
       onClick={() => { AudioEngine.click(); Haptics.click(); onOpen(); }}
     >
       <div className="linear-work-card-thumb">
-        <Placeholder label={project.id} accent={hovered} />
+        <Placeholder  label={project.id}   src={project.cover} accent={hovered} />
       </div>
       <div className="linear-work-card-body">
         <div className="linear-work-card-meta">
-          <span className="mono" style={{ color: 'var(--fg-dim)', fontSize: 'var(--step--1)' }}>{project.num}</span>
-          <span className="label">{project.tag} · {project.year}</span>
+          <span className="mono" style={{ color: 'var(--fg-dim)', fontSize: 'var(--step--1)' }}>{project.year}</span>
+          <span className="label">{project.tag}</span>
         </div>
         <h3 className="serif linear-work-card-title">{project.title}</h3>
         <p className="linear-work-card-summary">{project.summary}</p>
