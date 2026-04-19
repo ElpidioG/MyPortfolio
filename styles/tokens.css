@@ -1,0 +1,154 @@
+/* ============================================================
+   Spatial Portfolio — Design Tokens
+   ============================================================ */
+
+:root {
+  /* Color — dark cinematic default */
+  --bg: oklch(0.16 0.008 60);
+  --bg-elevated: oklch(0.20 0.010 60);
+  --bg-sunken: oklch(0.12 0.008 60);
+  --fg: oklch(0.94 0.008 80);
+  --fg-muted: oklch(0.70 0.008 80);
+  --fg-dim: oklch(0.50 0.008 80);
+  --rule: oklch(0.28 0.010 60);
+  --rule-strong: oklch(0.40 0.012 60);
+
+  /* Accent — violet */
+  --accent: oklch(0.70 0.17 290);
+  --accent-dim: oklch(0.70 0.17 290 / 0.35);
+  --accent-glow: oklch(0.70 0.17 290 / 0.18);
+
+  /* Type — grotesk pair */
+  --font-display: "Fraunces", serif;
+  --font-body: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Scale */
+  --step--2: 0.694rem;
+  --step--1: 0.833rem;
+  --step-0: 1rem;
+  --step-1: 1.2rem;
+  --step-2: 1.44rem;
+  --step-3: 1.728rem;
+  --step-4: 2.074rem;
+  --step-5: 2.488rem;
+  --step-6: 2.986rem;
+  --step-7: 3.583rem;
+  --step-8: 4.3rem;
+  --step-9: 5.16rem;
+  --step-10: 6.19rem;
+
+  /* Density — airy */
+  --pad: 2.25rem;
+  --gap: 1.5rem;
+  --radius: 14px;
+  --radius-sm: 8px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 180ms;
+  --dur: 320ms;
+  --dur-slow: 620ms;
+
+  /* Shadows — spatial */
+  --depth-1: 0 1px 0 oklch(1 0 0 / 0.04) inset, 0 1px 2px oklch(0 0 0 / 0.3);
+  --depth-2: 0 1px 0 oklch(1 0 0 / 0.05) inset, 0 8px 24px -8px oklch(0 0 0 / 0.5);
+  --depth-3: 0 1px 0 oklch(1 0 0 / 0.06) inset, 0 24px 60px -12px oklch(0 0 0 / 0.6);
+  --depth-4: 0 1px 0 oklch(1 0 0 / 0.08) inset, 0 40px 120px -20px oklch(0 0 0 / 0.7);
+}
+
+/* Light mode */
+:root[data-mode="light"] {
+  --bg: oklch(0.97 0.004 80);
+  --bg-elevated: oklch(1 0 0);
+  --bg-sunken: oklch(0.93 0.005 80);
+  --fg: oklch(0.18 0.008 60);
+  --fg-muted: oklch(0.42 0.008 60);
+  --fg-dim: oklch(0.62 0.008 60);
+  --rule: oklch(0.87 0.006 80);
+  --rule-strong: oklch(0.75 0.008 80);
+  --depth-1: 0 1px 0 oklch(1 0 0) inset, 0 1px 2px oklch(0 0 0 / 0.06);
+  --depth-2: 0 1px 0 oklch(1 0 0) inset, 0 8px 24px -8px oklch(0 0 0 / 0.12);
+  --depth-3: 0 1px 0 oklch(1 0 0) inset, 0 24px 60px -12px oklch(0 0 0 / 0.16);
+  --depth-4: 0 1px 0 oklch(1 0 0) inset, 0 40px 120px -20px oklch(0 0 0 / 0.22);
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
+}
+
+body {
+  min-height: 100vh;
+  transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+}
+
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+
+.mono { font-family: var(--font-mono); font-feature-settings: "ss01", "ss02"; letter-spacing: -0.01em; }
+.serif { font-family: var(--font-display); }
+.sans { font-family: var(--font-body); }
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.03em;
+  color: var(--fg-muted);
+}
+
+::selection { background: var(--accent); color: var(--bg); }
+
+@media (pointer: fine) {
+  *, *::before, *::after { cursor: none !important; }
+}
+
+/* Backgrounds (tweakable) */
+body[data-bg="grid"] {
+  background-image:
+    linear-gradient(var(--rule) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: -1px -1px;
+}
+
+body[data-bg="noise"]::before {
+  content: "";
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+body[data-bg="gradient"] {
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, var(--accent-glow), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 90%, var(--accent-glow), transparent 60%),
+    var(--bg);
+}
+
+.chrome-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  box-shadow: var(--depth-2);
+}
