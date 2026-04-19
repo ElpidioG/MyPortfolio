@@ -80,6 +80,7 @@ export default function LinearView({ onOpenProject, onOpenAbout, onOpenContact }
   >
       {/* Hero */}
       <section className="linear-hero">
+        <div className='linear-hero-content'>
         <div className="linear-hero-intro">
         <div className='linear-hero-text'> <h1
             className="serif linear-h1"
@@ -91,9 +92,7 @@ UX Engineer working across design and development.
         </p></div> 
           <MemojiSwap />
         </div>
-
-      
-        <div className="linear-cta">
+<div className="linear-cta">
           <button className="btn" onClick={onOpenContact} onMouseEnter={AudioEngine.hover}>
             Work with me →
           </button>
@@ -101,6 +100,8 @@ UX Engineer working across design and development.
             About
           </button>
         </div>
+      </div>
+        
         <div className="linear-scroll-hint mono" aria-hidden>
   
           <span className="linear-scroll-line" />
