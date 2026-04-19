@@ -127,7 +127,7 @@
 }
 
 .linear-hero {
-  max-width: 100vw;
+
   margin: 0 auto;
   padding: 12vh 4vw 16vh;
   position: relative;
@@ -141,7 +141,6 @@
 .linear-hero-intro {
   display: flex;
   align-items: center;
-  width: 80%;
   gap: 24px;
   margin-top: 18px;
 }
@@ -947,15 +946,18 @@ border-radius: 16px;
   .direction-switch button { padding: 5px 10px; }
 
   /* ── Hero ── */
-  .linear-hero { padding: 3vh 5vw 4vh; }
+  .linear-hero { padding: 3vh 5vw 4vh; align-items: center;  }
   .linear-hero-intro {
     flex-direction: column-reverse;
-    align-items: center;
+    text-align: center;
+
+    align-items: center;justify-content: center; 
     gap: 0;
   }
   .linear-memoji-wrap { width: 180px; height: 180px; }
   .linear-sub { font-size: var(--step-0); margin-top: 16px; }
-  .linear-cta { flex-wrap: wrap; }
+  .linear-cta { justify-content: center;    align-items: center; }
+
   .linear-scroll-hint { display: none; }
 
   /* ── Work section ── */
