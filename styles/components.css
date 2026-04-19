@@ -141,6 +141,7 @@
 .linear-hero-intro {
   display: flex;
   align-items: left;
+  width: 70%;
   gap: 40px;
   margin-top: 18px;
 }
