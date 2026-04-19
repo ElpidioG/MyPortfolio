@@ -81,7 +81,7 @@ export default function LinearView({ onOpenProject, onOpenAbout, onOpenContact }
       {/* Hero */}
       <section className="linear-hero">
         <div className="linear-hero-intro">
-        <div> <h1
+        <div className='linear-hero-text'> <h1
             className="serif linear-h1"
           >
 I turn everyday friction into experiences people actually enjoy

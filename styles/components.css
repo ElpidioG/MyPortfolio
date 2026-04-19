@@ -142,8 +142,13 @@
   width: 92vw;
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 16px;
   margin-top: 18px;
+}
+
+.linear-hero-text{
+  width: 90%;
+
 }
 .linear-memoji-wrap {
   position: relative;
