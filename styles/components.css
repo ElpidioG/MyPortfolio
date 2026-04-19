@@ -139,6 +139,7 @@
   margin-top: 18px;
 }
 .linear-hero-intro {
+  width: 92vw;
   display: flex;
   align-items: center;
   gap: 24px;
