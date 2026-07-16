@@ -1405,6 +1405,20 @@ border-radius: 16px;
 
   /* ── Contact form ── */
   .contact-heading { font-size: var(--step-3); }
+
+  /* ── Galaxy view ── */
+  .galaxy-hero h1 { font-size: var(--step-3) !important; }
+  .galaxy-sun { width: 68px; height: 68px; }
+  .galaxy-sun-core { inset: 14px; }
+  .galaxy-sun-halo { inset: -14px; }
+  .galaxy-sun-label { margin-top: 22px; }
+  .galaxy-planet-dot { width: 34px; height: 34px; }
+  .galaxy-planet-label {
+    min-width: 128px;
+    padding: 6px 8px;
+  }
+  .galaxy-planet-label p.serif { font-size: var(--step-0) !important; }
+  .galaxy-beacon { padding: 6px 12px 6px 8px; }
 }
 
 /* ============================================================

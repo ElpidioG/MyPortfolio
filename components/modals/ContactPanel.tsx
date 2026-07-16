@@ -82,6 +82,13 @@ export default function ContactPanel({ onClose }: ContactPanelProps) {
     e.preventDefault();
     setSending(true);
     setError('');
+
+    if (!process.env.NEXT_PUBLIC_WEB3FORMS_KEY) {
+      setError("This form isn't configured yet — email me directly below instead.");
+      setSending(false);
+      return;
+    }
+
     try {
       const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',

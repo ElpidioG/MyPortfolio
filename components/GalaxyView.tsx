@@ -52,6 +52,25 @@ function GalaxyPlanet({
   );
 }
 
+/** Reference viewport the orbit/beacon distances below were designed for. Below this, everything scales down so planets and the contact beacon stay on-screen. */
+const REFERENCE_W = 1000;
+const REFERENCE_H = 820;
+
+function useSpread() {
+  const [spread, setSpread] = useState(1);
+
+  useEffect(() => {
+    const update = () => {
+      setSpread(Math.min(1, window.innerWidth / REFERENCE_W, window.innerHeight / REFERENCE_H));
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+
+  return spread;
+}
+
 export default function GalaxyView({
   onOpenProject,
   onOpenAbout,
@@ -59,6 +78,9 @@ export default function GalaxyView({
 }: GalaxyViewProps) {
   const [t, setT] = useState(0);
   const cursor = useCursor();
+  const spread = useSpread();
+  /** Nudges the whole orbit system down on short/narrow screens so planets clear the fixed top bar and hero heading. */
+  const centerYBias = (1 - spread) * 90;
 
   useEffect(() => {
     let raf: number;
@@ -94,7 +116,7 @@ export default function GalaxyView({
           onOpenAbout();
         }}
         onMouseEnter={AudioEngine.hover}
-        style={{ transform: `translate(calc(-50% + ${px * 0.2}px), calc(-50% + ${py * 0.2}px))` }}
+        style={{ transform: `translate(calc(-50% + ${px * 0.2}px), calc(-50% + ${py * 0.2 + centerYBias}px))` }}
       >
         <div className="galaxy-sun-core" />
         <div className="galaxy-sun-halo" />
@@ -104,12 +126,12 @@ export default function GalaxyView({
       </button>
 
       {PROJECTS.map((p, i) => {
-        const orbit = 160 + i * 80;
+        const orbit = (160 + i * 80) * spread;
         const period = 60 + i * 22;
         const phase = (i / PROJECTS.length) * Math.PI * 2;
         const angle = phase + (t / period) * Math.PI * 2;
         const x = Math.cos(angle) * orbit + px * 0.3;
-        const y = Math.sin(angle) * orbit * 0.55 + py * 0.3;
+        const y = Math.sin(angle) * orbit * 0.55 + py * 0.3 + centerYBias;
 
         return (
           <React.Fragment key={p.id}>
@@ -118,7 +140,7 @@ export default function GalaxyView({
               style={{
                 width: orbit * 2,
                 height: orbit * 2 * 0.55,
-                transform: `translate(calc(-50% + ${px * 0.15}px), calc(-50% + ${py * 0.15}px))`,
+                transform: `translate(calc(-50% + ${px * 0.15}px), calc(-50% + ${py * 0.15 + centerYBias}px))`,
               }}
               aria-hidden
             />
@@ -147,8 +169,8 @@ export default function GalaxyView({
         onMouseEnter={AudioEngine.hover}
         style={{
           transform: `translate(
-            calc(-50% + ${Math.cos(t / 8) * 340 + px * 0.5}px),
-            calc(-50% + ${Math.sin(t / 8) * 200 + py * 0.5}px)
+            calc(-50% + ${Math.cos(t / 8) * 340 * spread + px * 0.5}px),
+            calc(-50% + ${Math.sin(t / 8) * 200 * spread + py * 0.5 + centerYBias}px)
           )`,
         }}
       >
