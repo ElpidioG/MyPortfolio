@@ -837,7 +837,12 @@ border-radius: 16px;
 }
 
 /* Contact panel form */
-.contact-panel-body { padding: 2rem 0; }
+.contact-panel-body {
+  padding: 2rem 0;
+  /* Roughly matches the form's natural height so the panel doesn't visibly
+     collapse when the form is replaced by the shorter sent/error message. */
+  min-height: 650px;
+}
 .contact-heading {
   font-size: var(--step-4);
   letter-spacing: -0.02em;
