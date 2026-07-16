@@ -75,14 +75,34 @@ export default function ContactPanel({ onClose }: ContactPanelProps) {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`Portfolio — ${name}`);
-    const body = encodeURIComponent(`From: ${name} <${email}>\n\n${message}`);
-    window.open(`mailto:elpidiomarquez0417@gmail.com?subject=${subject}&body=${body}`);
-    setSent(true);
-    AudioEngine.chime?.();
+    setSending(true);
+    setError('');
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
+          subject: `New inquiry from ${name}`,
+          from_name: name,
+          email,
+          message,
+        }),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.message || 'Send failed');
+      setSent(true);
+      AudioEngine.chime?.();
+    } catch {
+      setError("Couldn't send — try again, or email me directly below.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -93,7 +113,7 @@ export default function ContactPanel({ onClose }: ContactPanelProps) {
         </h2>
 
         {sent ? (
-          <p className="contact-sent mono">Your mail client opened — let's talk!</p>
+          <p className="contact-sent mono">Message sent — I'll get back to you soon!</p>
         ) : (
           <form className="contact-form" onSubmit={handleSubmit}>
             <div className="contact-field">
@@ -132,8 +152,9 @@ export default function ContactPanel({ onClose }: ContactPanelProps) {
                 onChange={e => setMessage(e.target.value)}
               />
             </div>
-            <button className="btn contact-submit" type="submit" onMouseEnter={AudioEngine.hover}>
-              Send message →
+            {error && <p className="contact-error mono">{error}</p>}
+            <button className="btn contact-submit" type="submit" disabled={sending} onMouseEnter={AudioEngine.hover}>
+              {sending ? 'Sending…' : 'Send message →'}
             </button>
           </form>
         )}

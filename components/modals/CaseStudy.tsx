@@ -3,10 +3,10 @@ import React, { useEffect } from 'react';
 import AudioEngine from '@/lib/audio';
 import ModalShell from './ModalShell';
 import Placeholder from '@/components/Placeholder';
-import { Project } from '@/data/projects';
+import { CaseStudyProject } from '@/data/projects';
 
 interface CaseStudyProps {
-  project: Project;
+  project: CaseStudyProject;
   onClose: () => void;
 }
 
@@ -43,7 +43,14 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
       </div>
 
       <div className="cs-hero">
-        <Placeholder label={`${project.id}_hero`} src={project.cover} accent />
+        <Placeholder
+          label={`${project.id}`}
+          src={project.cover}
+          srcLight={project.coverLight}
+          accent
+          objectPosition={project.coverPosition}
+          scrollable={project.coverScrollable}
+        />
       </div>
 
       <div className="cs-body">
@@ -79,8 +86,10 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
       <div key={i} className="cs-research-graphic">
         <Placeholder
           src={g.src}
+          srcLight={g.srcLight}
           href={g.href}
           label={g.label || `research-${i + 1}`}
+          scrollable={g.scrollable}
         />
       </div>
     ))}
@@ -118,8 +127,14 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
         </section>
 
         <section className="cs-gallery">
-          <div><Placeholder label={`${project.id}_01`} /></div>
-          <div><Placeholder label={`${project.id}_02`} /></div>
+          {(project.gallery && project.gallery.length > 0
+            ? project.gallery
+            : [{ label: `${project.id}_01` }, { label: `${project.id}_02` }]
+          ).map((g, i) => (
+            <div key={i}>
+              <Placeholder label={g.label ?? `${project.id}_0${i + 1}`} src={g.src} srcLight={g.srcLight} href={g.href} scrollable={g.scrollable} />
+            </div>
+          ))}
         </section>
 
       </div>

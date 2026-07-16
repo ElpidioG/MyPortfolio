@@ -37,21 +37,6 @@
   color: var(--fg);
   letter-spacing: 0.03em;
 }
-.brand-mark {
-  width: 22px; height: 22px;
-  border: 1px solid var(--fg);
-  border-radius: 50%;
-  position: relative;
-}
-.brand-mark::after {
-  content: "";
-  position: absolute;
-  left: 50%; top: 50%;
-  width: 6px; height: 6px;
-  background: var(--accent);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-}
 
 .direction-switch {
   display: flex;
@@ -78,11 +63,15 @@
   color: var(--bg);
 }
 
-.nav-sep {
-  width: 1px;
-  align-self: stretch;
-  background: var(--rule);
-  margin: 2px 6px;
+.nav-links {
+  display: flex;
+  gap: 0;
+  background: color-mix(in oklch, var(--bg-elevated) 80%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 4px;
 }
 .nav-link {
   font-family: var(--font-mono);
@@ -114,6 +103,39 @@
   color: var(--accent);
   border-color: var(--accent);
   transform: rotate(20deg) scale(1.1);
+}
+
+.back-to-top {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--rule);
+  color: var(--fg-muted);
+  background: color-mix(in oklch, var(--bg-elevated) 80%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  opacity: 0;
+  transform: translateY(12px) scale(0.9);
+  pointer-events: none;
+  transition: color var(--dur), border-color var(--dur),
+              opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-spring);
+}
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+.back-to-top:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-3px) scale(1.05);
 }
 
 /* ── Buttons ─────────────────────────────────────────────────── */
@@ -318,6 +340,7 @@ border-radius: 16px;
 }
 .linear-work-card-thumb {
   width: 46%;
+  aspect-ratio: 5 / 4;
   flex-shrink: 0;
   overflow: hidden;
   border-radius: var(--radius);
@@ -356,6 +379,11 @@ border-radius: 16px;
   font-size: var(--step-0);
   line-height: 1.5;
   max-width: 44ch;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .linear-work-card-footer {
   display: flex;
@@ -672,7 +700,13 @@ border-radius: 16px;
   animation: modalSlide 400ms var(--ease-spring);
   box-shadow: -40px 0 80px oklch(0 0 0 / 0.4);
 }
-.modal-panel.narrow { width: min(560px, 96vw); }
+.modal-panel.narrow {
+  width: min(560px, 96vw);
+  align-self: flex-start;
+  height: auto;
+  max-height: 100%;
+  overflow: hidden;
+}
 @keyframes modalSlide {
   from { transform: translateX(40px); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
@@ -836,6 +870,12 @@ border-radius: 16px;
 .contact-input::placeholder { color: var(--fg-dim); }
 .contact-textarea { min-height: 120px; }
 .contact-submit { margin-top: 4px; align-self: flex-start; }
+.contact-submit:disabled { opacity: 0.6; cursor: default; }
+.contact-error {
+  color: oklch(0.65 0.18 25);
+  font-size: var(--step--1);
+  margin-top: -8px;
+}
 .contact-sent {
   color: var(--accent);
   font-size: var(--step-0);
@@ -992,7 +1032,7 @@ border-radius: 16px;
 .cs-num { color: var(--accent); }
 .cs-gallery {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 12px;
 }
 .cs-gallery > div {
@@ -1016,6 +1056,73 @@ border-radius: 16px;
   border-radius: 12px;
   background: var(--bg-elevated);
 }
+
+/* ── Lab (Code Experiments) ── */
+.lab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+.lab-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  overflow: hidden;
+  transition: border-color var(--dur) var(--ease-out), transform var(--dur) var(--ease-spring);
+}
+.lab-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+.lab-card-cover {
+  aspect-ratio: 16/10;
+  border-bottom: 1px solid var(--rule);
+  overflow: hidden;
+}
+.lab-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+}
+.lab-card-title {
+  font-size: var(--step-2);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+.lab-card-desc {
+  font-size: var(--step-0);
+  color: var(--fg-muted);
+  line-height: 1.5;
+}
+.lab-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+.lab-tag {
+  font-size: var(--step--2);
+  letter-spacing: 0.03em;
+  color: var(--fg-dim);
+  padding: 3px 9px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+}
+.lab-card-links {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+}
+.lab-card-link {
+  font-size: var(--step--1);
+  letter-spacing: 0.03em;
+  color: var(--accent);
+  transition: opacity var(--dur-fast);
+}
+.lab-card-link:hover { opacity: 0.7; }
 
 /* ============================================================
    PLACEHOLDER — hover overlay + lightbox
@@ -1141,6 +1248,27 @@ border-radius: 16px;
   border-radius: var(--radius-sm);
 }
 
+/* Scrollable variant — for tall full-page screenshots: shown at full width,
+   scrolled top-to-bottom inside the lightbox instead of shrunk to fit.
+   display:block (not flex) so the image's height:auto sizes from its own
+   intrinsic aspect ratio instead of stretching to the wrap's flex cross-size. */
+.placeholder-lightbox-image-wrap.scrollable {
+  display: block;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0;
+  text-align: center;
+}
+
+.placeholder-lightbox-image.scrollable {
+  display: inline-block;
+  width: min(640px, 100%);
+  max-width: none;
+  height: auto;
+  max-height: none;
+  border-radius: 0;
+}
+
 .placeholder-lightbox-iframe {
   flex: 1;
   width: 100%;
@@ -1210,8 +1338,7 @@ border-radius: 16px;
 @media (max-width: 600px) {
   /* ── Top bar ── */
   .top-bar { padding: 12px 16px; }
-  .nav-sep,
-  .nav-link { display: none; }
+  .nav-links { display: none; }
   .direction-switch button { padding: 5px 10px; }
 
   /* ── Hero ── */
@@ -1258,6 +1385,7 @@ border-radius: 16px;
     max-width: 100vw;border-left: none; border-top: 1px solid var(--rule); }
   .modal-root { align-items: flex-end; }
   .modal-panel { height: 100dvh;  animation: modalSlide 360ms var(--ease-spring); }
+  .modal-panel.narrow { align-self: flex-end; max-height: 90dvh; }
   @keyframes modalSlide {
     from { transform: translateY(40px); opacity: 0; }
     to   { transform: translateY(0);    opacity: 1; }

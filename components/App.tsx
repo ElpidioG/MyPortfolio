@@ -8,6 +8,9 @@ import Cursor from './Cursor';
 import AboutPanel from './modals/AboutPanel';
 import ContactPanel from './modals/ContactPanel';
 import CaseStudy from './modals/CaseStudy';
+import Lab from './modals/Lab';
+import BackToTop from './BackToTop';
+import Logo from './Logo';
 import { Project } from '@/data/projects';
 
 function SunIcon() {
@@ -87,7 +90,7 @@ export default function App() {
 
       <div className={'top-bar' + (scrolled ? ' scrolled' : '')}>
         <div className="brand">
-          <span className="brand-mark" />
+          <Logo size={22} strokeWidth={9} />
           <span>Elpidio Márquez</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -102,7 +105,8 @@ export default function App() {
                 {key.charAt(0).toUpperCase() + key.slice(1)}
               </button>
             ))}
-            <span className="nav-sep" aria-hidden />
+          </div>
+          <div className="nav-links">
             <button
               className="nav-link"
               onClick={() => { AudioEngine.click(); setAboutOpen(true); }}
@@ -129,9 +133,15 @@ export default function App() {
         </div>
       </div>
 
-      {activeProject && <CaseStudy project={activeProject} onClose={() => setActiveProject(null)} />}
+      {activeProject && (
+        activeProject.type === 'lab'
+          ? <Lab project={activeProject} onClose={() => setActiveProject(null)} />
+          : <CaseStudy project={activeProject} onClose={() => setActiveProject(null)} />
+      )}
       {aboutOpen && <AboutPanel onClose={() => setAboutOpen(false)} />}
       {contactOpen && <ContactPanel onClose={() => setContactOpen(false)} />}
+
+      <BackToTop />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect } from 'react';
 import AudioEngine from '@/lib/audio';
+import { lockScroll, unlockScroll } from '@/lib/scrollLock';
 
 interface ModalShellProps {
   title: string;
@@ -13,10 +14,10 @@ export default function ModalShell({ title, children, onClose, narrow }: ModalSh
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', onKey);
-    document.body.style.overflow = 'hidden';
+    lockScroll();
     return () => {
       window.removeEventListener('keydown', onKey);
-      document.body.style.overflow = '';
+      unlockScroll();
     };
   }, [onClose]);
 

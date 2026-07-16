@@ -41,7 +41,7 @@ function LinearWorkCard({ project, onOpen, index }: { project: Project; onOpen: 
       onClick={() => { AudioEngine.click(); Haptics.click(); onOpen(); }}
     >
       <div className="linear-work-card-thumb">
-        <Placeholder  label={project.id}   src={project.cover} accent={hovered} />
+        <Placeholder label={project.id} src={project.cover} srcLight={project.coverLight} accent={hovered} interactive={false} fit={project.coverFit} objectPosition={project.coverPosition} />
       </div>
       <div className="linear-work-card-body">
         <div className="linear-work-card-meta">
