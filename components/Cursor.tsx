@@ -1,9 +1,10 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const TRAIL = 28;
 
 export default function Cursor() {
+  const [enabled, setEnabled] = useState(false);
   const dotRef = useRef<HTMLDivElement>(null);
   const trailRefs = useRef<(HTMLDivElement | null)[]>([]);
   const history = useRef(Array.from({ length: TRAIL }, () => ({ x: -300, y: -300 })));
@@ -13,6 +14,16 @@ export default function Cursor() {
   const isClickable = useRef(false);
 
   useEffect(() => {
+    const mq = window.matchMedia('(pointer: coarse)');
+    setEnabled(!mq.matches);
+    const onChange = () => setEnabled(!mq.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+
+  useEffect(() => {
+    if (!enabled) return;
+
     const onMove = (e: MouseEvent) => {
       mouse.current = { x: e.clientX, y: e.clientY };
       isClickable.current = !!(e.target as HTMLElement).closest(
@@ -63,7 +74,9 @@ const TRAIL_OFFSET = 4;
       document.removeEventListener('mousemove', onMove);
       cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [enabled]);
+
+  if (!enabled) return null;
 
   return (
     <div

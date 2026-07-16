@@ -1384,8 +1384,9 @@ border-radius: 16px;
   .modal-panel.narrow { width: 100vw;
     max-width: 100vw;border-left: none; border-top: 1px solid var(--rule); }
   .modal-root { align-items: flex-end; }
-  .modal-panel { height: 100dvh;  animation: modalSlide 360ms var(--ease-spring); }
-  .modal-panel.narrow { align-self: flex-end; max-height: 90dvh; }
+  .modal-panel,
+  .modal-panel.narrow { height: 100dvh; animation: modalSlide 360ms var(--ease-spring); }
+  .modal-panel.narrow { align-self: flex-end; max-height: 100dvh; overflow-y: auto; }
   @keyframes modalSlide {
     from { transform: translateY(40px); opacity: 0; }
     to   { transform: translateY(0);    opacity: 1; }
