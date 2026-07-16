@@ -165,12 +165,12 @@ export const PROJECTS: Project[] = [
        graphics: [
   {
     label: "LinkedIn",
-    src: "/Linkedin_evidence.png",
+    src: "/LinkedIn_Evidence.png",
     href: "https://www.linkedin.com/",
   },
   {
     label: "ZeeMee",
-    src: "/Zeemeeevidence.png",
+    src: "/ZeemeeEvidence.png",
       href: "https://www.zeemee.com/",
   },  
   {
